@@ -15,8 +15,7 @@ def main():
     # snapshot_download(
     #     repo_id="RohitGENAICODER/ASVspoofLADataset",
     #     repo_type="dataset",
-    #     local_dir="Datasets/LA",
-    #     token="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"
+    #     local_dir="Datasets/LA"
     # )
 
     Data_root = r"D:\Deep Neural Network\ML-Audio_DeepFake\Datasets\LA"
