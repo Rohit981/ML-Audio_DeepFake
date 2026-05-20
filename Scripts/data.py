@@ -1,7 +1,7 @@
 import pandas as pd
 import librosa
 import os
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, WeightedRandomSampler
 import numpy as np
 import torch
 
@@ -10,6 +10,7 @@ class ASVpoofDataset(Dataset):
         super().__init__()
 
         self.base_dir = base_dir
+        self.part = part
         self.audio_dir = os.path.join(self.base_dir, f"ASVspoof2019_LA_{part}", "flac")
         protocol_file = os.path.join(self.base_dir, "ASVspoof2019_LA_cm_protocols", 
                                      f"ASVspoof2019.LA.cm.{part}.trl.txt")
@@ -34,6 +35,28 @@ class ASVpoofDataset(Dataset):
     
     def __len__(self):
         return len(self.file_list)
+    
+    def data_balancing(self, train_dataset):
+        #Get list of labels directly from dataset object
+        train_labels = train_dataset.file_labels
+
+        #Define the counts for bonafide and spoof
+        count_0 = train_labels.count(0)
+        count_1 = train_labels.count(1)
+        class_count = [count_0, count_1]
+        class_weights = [1.0 / c for c in class_count] # Calculates inverse frequency
+
+        #Assign a specific sampling weight to every file in the dataset
+        sample_weights = [class_weights[label] for label in train_labels]
+        sample_weights = torch.tensor(sample_weights, dtype=torch.float)
+
+        #Create weighted random sampler
+        sampler = WeightedRandomSampler(
+            weights=sample_weights,
+            num_samples=len(sample_weights),
+            replacement=True
+        )
+        return sampler
     
     def __getitem__(self, index):
         #Construct path and load data with librosa
@@ -63,8 +86,15 @@ class ASVpoofDataset(Dataset):
 
         #Convert to pytorch labels
         X_tensor = torch.tensor(mel_decb,dtype=torch.float32)
+
+        #Add Gausian Noise for data augmentation to train dataset only
+        if self.part == "train":
+            noise = torch.rand_like(X_tensor)*0.005
+            X_tensor = X_tensor + noise
+
         Y_tensor = torch.tensor(self.file_labels[index], dtype=torch.float32)
 
         return X_tensor, Y_tensor
+
 
 
