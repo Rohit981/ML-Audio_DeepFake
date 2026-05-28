@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from CNNTrasnformer.TransformerModel import MultiHeadAttention, PositionalEncoding, PositionWiseFeedForward
+from Transformer.TransformerModel import MultiHeadAttention, PositionalEncoding, PositionWiseFeedForward
 
 class CNN(nn.Module):
     def __init__(self, 
@@ -110,7 +110,7 @@ class TransformerLayer(nn.Module):
             x = layer(x)
         
         #Global Average Pooling across the temporal length (256 tokens)
-        x = x.mean(dim=1) # Shape: [Batch, 256]
+        x = x.mean(dim=1) # Shape: [Batch, 128]
 
         #Final Projection layer for classification
         x = self.fc(x)

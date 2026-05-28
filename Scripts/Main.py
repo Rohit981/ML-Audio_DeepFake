@@ -4,7 +4,7 @@ import os
 from Resnet50 import CustomResnet50
 from Trainer import Trainer
 import torch.nn as nn  
-from CNNTrasnformer.CnnTrasnformer import CNNTrasnformer
+from Transformer import CnnTrasnformer,VisionTransformer
 import evaluation
 
 
@@ -40,10 +40,13 @@ def main():
     Resnet_18 = CustomResnet50.Resnet18(1)
 
     #CNN Transformer Model
-    CNN_Transformer = CNNTrasnformer()
+    CNN_Transformer = CnnTrasnformer.CNNTrasnformer()
+
+    #Vision Transformer
+    VIT = VisionTransformer.VIT()
 
     #Track of active model
-    active_model = CNN_Transformer
+    active_model = VIT
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
