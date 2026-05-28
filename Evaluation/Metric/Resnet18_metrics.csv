@@ -9,3 +9,15 @@ Default Test Acc: 0.8487
 Test ROC-AUC: 0.9808
 Test EER (%): 7.78%
 Optimal Threshold: 0.000490
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet18
+Epochs: 100
+Training Time: 153.87 seconds
+Highest Val Acc: 0.9994
+Default Test Acc: 0.7758
+Test ROC-AUC: 0.9626
+Test EER (%): 10.40%
+Optimal Threshold: 0.004881

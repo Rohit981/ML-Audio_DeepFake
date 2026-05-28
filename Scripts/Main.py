@@ -25,7 +25,7 @@ def main():
     #Initialize Batch Size, epochs and checkpoints
     batch_size = 64
     n_epochs = 100
-    start_from_checkpoint = True
+    start_from_checkpoint = False
     
     #Define Loss Fn and assign weights
     # train_labels = train_dataset.file_labels
@@ -43,7 +43,7 @@ def main():
     CNN_Transformer = CNNTrasnformer()
 
     #Track of active model
-    active_model = Resnet_50
+    active_model = CNN_Transformer
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 

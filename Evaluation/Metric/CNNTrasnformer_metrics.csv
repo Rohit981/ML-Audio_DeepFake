@@ -21,3 +21,15 @@ Default Test Acc: 0.3488
 Test ROC-AUC: 0.9741
 Test EER (%): 8.61%
 Optimal Threshold: 0.000728
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTrasnformer
+Epochs: 100
+Training Time: 641.01 seconds
+Highest Val Acc: 0.9999
+Default Test Acc: 0.7776
+Test ROC-AUC: 0.9721
+Test EER (%): 8.80%
+Optimal Threshold: 0.000591

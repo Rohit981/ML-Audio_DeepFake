@@ -277,7 +277,7 @@ class ModelTrainer(nn.Module):
         
         return epoch_loss,epoc_acc,f1,recall,all_preds,all_labels,all_probs
     
-   
+    #Run through epochs, train and evaluate the model
     def RunEpochs(self,train_dataset, test_dataset, val_dataset,n_epochs):
         #Set Data Loader
         self.set_data(train_set=train_dataset,test_set=test_dataset,val_set=val_dataset)
