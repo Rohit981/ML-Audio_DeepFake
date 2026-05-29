@@ -6,13 +6,17 @@ from Trainer import Trainer
 import torch.nn as nn  
 from Transformer import CnnTrasnformer,VisionTransformer
 import evaluation
+from config import AudioConfig
+from Utils.Leaderboard import ResultLeaderboard
 
 
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
 
 def main():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(device)
+    
+    #Initialize Config class
+    config = AudioConfig()
+
 
     #Instantiate Datasets
     train_dataset = data.ASVpoofDataset(part="train", precompute=False)
@@ -22,17 +26,6 @@ def main():
     # #Create a sampler for data balance
     sampler = train_dataset.data_balancing(train_dataset)
     
-    #Initialize Batch Size, epochs and checkpoints
-    batch_size = 64
-    n_epochs = 100
-    start_from_checkpoint = False
-    
-    #Define Loss Fn and assign weights
-    # train_labels = train_dataset.file_labels
-    # count_0 = train_labels.count(0)
-    # count_1 = train_labels.count(1)
-
-    # pos_weight_value = torch.tensor([count_0 / count_1], dtype=torch.float).to(device)
     loss_fn = nn.BCEWithLogitsLoss()
 
     #Resnet Models
@@ -40,35 +33,51 @@ def main():
     Resnet_18 = CustomResnet50.Resnet18(1)
 
     #CNN Transformer Model
-    CNN_Transformer = CnnTrasnformer.CNNTrasnformer()
+    CNN_Transformer = CnnTrasnformer.CNNTrasnformer(config)
 
     #Vision Transformer
-    VIT = VisionTransformer.VIT()
+    VIT = VisionTransformer.VIT(config)
 
     #Track of active model
-    active_model = VIT
+    active_model = Resnet_50
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
-                                   device=device,
+                                   device=config.device,
                                    loss_fn=loss_fn,
-                                   learning_rate=1e-4, 
-                                   batch_size=batch_size,
+                                   learning_rate=config.learning_rate, 
+                                   batch_size=config.batch_size,
                                    sampler=sampler,
-                                   start_from_checkpoint=start_from_checkpoint)
+                                   start_from_checkpoint=config.start_from_checkpoint)
 
     trainer.RunEpochs(train_dataset=train_dataset,
                       test_dataset=test_dataset,
                       val_dataset=val_dataset,
-                      n_epochs=n_epochs)
-
-    evaluation.Evaluation_metric(Trainer=trainer,
+                      n_epochs=config.n_epochs)
+    
+    #Initialize Evaluation Metric and set best valid acc
+    config.highest_val_acc = trainer.best_valid_acc
+    eval_metric =  evaluation.Evaluation_metric(Trainer=trainer,
                                  model=active_model,
-                                 n_epochs=n_epochs,
                                  total_training_time=trainer.training_time,
-                                 highest_val_acc=trainer.best_valid_acc)
+                                 config=config)
+    
+    #Initialize Leaderboard and set config variables
+    config.test_acc = eval_metric.test_acc
+    config.roc_auc_value = eval_metric.roc_value
+    config.eer_value = eval_metric.eer_value
+    config.optimal_threshold = eval_metric.optimal_threshold
 
-           
+
+    leaderboard = ResultLeaderboard(config=config)
+    leaderboard.add_run(
+        model_name=trainer.model_name,
+        metrics=leaderboard.set_final_metric(),
+        classification_report=eval_metric.classification_report,
+        confusion_matrix=eval_metric.Conf_list
+
+    )
+    
 
 if __name__ == "__main__":
     main()

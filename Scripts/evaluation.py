@@ -6,23 +6,27 @@ from sklearn.metrics import roc_curve,classification_report,roc_auc_score
 import numpy as np
 import os
 import csv
+from config import AudioConfig
 
 
 class Evaluation_metric:
     def __init__(self,
                  Trainer, 
                  model, 
-                 n_epochs, 
                  total_training_time,
-                 highest_val_acc):
+                 config:AudioConfig):
         
         #Initialize Variables
         self.trainer = Trainer
         self.model_name = getattr(model,'architecture_name',model.__class__.__name__) 
 
-        self.n_epochs = n_epochs
+        self.n_epochs = config.n_epochs
         self.total_training_time = total_training_time
-        self.highest_val_acc = highest_val_acc
+        self.highest_val_acc = config.highest_val_acc
+        self.roc_value = config.roc_auc_value
+        self.eer_value = config.eer_value
+        self.optimal_threshold = config.optimal_threshold
+        self.test_acc = config.test_acc
         self.metric_save_dir = r"D:\Deep Neural Network\ML-Audio_DeepFake\Evaluation\Metric"
 
         self.forward()
@@ -48,8 +52,7 @@ class Evaluation_metric:
         ]
 
         with open(filepath,mode='a', encoding='utf-8') as f:
-            writer = csv.DictWriter(f,fieldnames=fieldname)
-
+            writer = csv.writer(f)
             # If the file already has a model log, add a visual separator before appending the new run
             if file_exists:
                 f.write("\n" + "="*40 + "\n")
@@ -204,7 +207,11 @@ class Evaluation_metric:
         
         #Generate the adjusted report
         print("Tuned Classification Report:")
-        print(classification_report(y_true, tuned_preds, target_names=['bonafide', 'spoof']))
+        self.classification_report = classification_report(y_true, 
+                                                           tuned_preds, 
+                                                           target_names=['bonafide', 'spoof'],
+                                                           output_dict=True)
+        print(self.classification_report)
 
         #Plot the ROC curve
         plt.figure(figsize=(6,6))
@@ -224,8 +231,8 @@ class Evaluation_metric:
     
     def forward(self):
         #Call the evaluate function and pass the evaluation/test dataloader
-        test_loss, test_acc, test_f1, test_recall, test_preds, test_labels, test_probs = self.trainer.evalModel(train_test_val="test")
-        print(f"Test Accuracy: {test_acc:.4f}")
+        test_loss, self.test_acc, test_f1, test_recall, test_preds, test_labels, test_probs = self.trainer.evalModel(train_test_val="test")
+        print(f"Test Accuracy: {self.test_acc:.4f}")
 
         #Plot Graph to visualize Train loss, acc and val loss, acc
         self.Visualize_loss_acc(self.trainer.train_loss,
@@ -238,6 +245,10 @@ class Evaluation_metric:
         confusion_matrix = ConfusionMatrix(task='binary')
         conf_mat = confusion_matrix(torch.tensor(test_labels), 
                                     torch.tensor(test_preds))
+        
+        #Create a metric list that will be used by leaderboard
+        self.Conf_list = conf_mat.tolist()
+        
         #Plot Confussion Matrix
         fig, ax = plot_confusion_matrix(conf_mat.numpy(),
                                         class_names=['bonafide', 'spoof'],
@@ -246,8 +257,8 @@ class Evaluation_metric:
         
 
         #Plot ROC curve,AUC score and classification Report
-        auc_score, eer, optimal_threshold = self.ROC_AUC_Values(test_labels,test_probs)
+        self.roc_value, self.eer_value, self.optimal_threshold = self.ROC_AUC_Values(test_labels,test_probs)
 
         #Save the metrics
-        self.save_metrics(test_acc,auc_score,eer,optimal_threshold)
+        self.save_metrics(self.test_acc,self.roc_value,self.eer_value,self.optimal_threshold)
     

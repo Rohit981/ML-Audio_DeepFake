@@ -9,3 +9,15 @@ Default Test Acc: 0.8331
 Test ROC-AUC: 0.9342
 Test EER (%): 12.94%
 Optimal Threshold: 0.319003
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: VIT
+Epochs: 100
+Training Time: 511.75 seconds
+Highest Val Acc: 0.9924
+Default Test Acc: 0.8472
+Test ROC-AUC: 0.9718
+Test EER (%): 8.21%
+Optimal Threshold: 0.009264

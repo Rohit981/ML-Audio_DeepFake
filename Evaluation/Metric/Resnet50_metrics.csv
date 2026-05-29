@@ -33,3 +33,63 @@ Default Test Acc: 0.8547
 Test ROC-AUC: 0.9445
 Test EER (%): 11.69%
 Optimal Threshold: 0.000020
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet50
+Epochs: 100
+Training Time: 480.03 seconds
+Highest Val Acc: 0.9998
+Default Test Acc: 0.8575
+Test ROC-AUC: 0.9252
+Test EER (%): 13.03%
+Optimal Threshold: 0.000879
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet50
+Epochs: 100
+Training Time: 896.03 seconds
+Highest Val Acc: 0.9996
+Default Test Acc: 0.7700
+Test ROC-AUC: 0.9394
+Test EER (%): 11.71%
+Optimal Threshold: 0.000919
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet50
+Epochs: 100
+Training Time: 670.86 seconds
+Highest Val Acc: 0.9995
+Default Test Acc: 0.8403
+Test ROC-AUC: 0.9453
+Test EER (%): 10.86%
+Optimal Threshold: 0.001268
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet50
+Epochs: 100
+Training Time: 639.11 seconds
+Highest Val Acc: 0.9996
+Default Test Acc: 0.6266
+Test ROC-AUC: 0.9588
+Test EER (%): 10.33%
+Optimal Threshold: 0.001686
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: Resnet50
+Epochs: 100
+Training Time: 508.94 seconds
+Highest Val Acc: 0.9998
+Default Test Acc: 0.8081
+Test ROC-AUC: 0.8887
+Test EER (%): 17.10%
+Optimal Threshold: 0.339760

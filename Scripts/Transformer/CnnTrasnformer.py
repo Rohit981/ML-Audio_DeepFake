@@ -1,11 +1,12 @@
 import torch
 import torch.nn as nn
 from Transformer.TransformerModel import MultiHeadAttention, PositionalEncoding, PositionWiseFeedForward
+from config import AudioConfig
 
 class CNN(nn.Module):
     def __init__(self, 
-                 input_dim=1, 
-                 layer_channels=[32.64,128], 
+                 input_dim, 
+                 layer_channels, 
                  dropout_value=0.2):
         super().__init__()
         #Initialize Input and Output
@@ -80,13 +81,13 @@ class EncoderBlock(nn.Module):
 #Transformer Layer uses the encoder block and does classification
 class TransformerLayer(nn.Module):
     def __init__(self, 
-                 d_model=128, 
-                 n_heads=4, 
-                 num_layers=3,
-                 d_ff=512,
-                 num_classes=1):
+                 d_model, 
+                 n_heads, 
+                 num_layers,
+                 d_ff,
+                 num_classes):
         super().__init__()
-
+        
         #Positional Encoding class
         self.positional_encoding = PositionalEncoding(d_model,max_seq_length=256)
         self.dropout = nn.Dropout(0.1)
@@ -118,16 +119,12 @@ class TransformerLayer(nn.Module):
 
 #Define a CNN Transformer Model
 class CNNTrasnformer(nn.Module):
-    def __init__(self, 
-                 input_dim=1, 
-                 layer_channels=[32,64,128], 
-                 n_heads=4,
-                 num_layers=3,
-                 d_ff=512):
+    def __init__(self, config:AudioConfig):
         super().__init__()
 
         #Initialize Dynamic CNN
-        self.cnn = CNN(input_dim,layer_channels)
+        self.cnn = CNN(config.in_channels,
+                       config.input_layer_channels)
 
         #Automatically read the final number of channels
         d_model = self.cnn.final_num_channels
@@ -135,9 +132,10 @@ class CNNTrasnformer(nn.Module):
         #Intialize the transformer class
         self.transformer = TransformerLayer(
             d_model,
-            n_heads,
-            num_layers,
-            d_ff,
+            config.n_heads,
+            config.num_layers,
+            config.d_ff,
+            config.num_classes
         )
     
     def forward(self,x):

@@ -1,0 +1,15 @@
+Timestamp,Model Name,Highest Val Acc,Default Test Acc,Test ROC-AUC,Test EER (%),Optimal Threshold
+2026-05-29 17:51:02
+Model Name:Resnet50
+0.9996
+0.6266
+0.9588
+10.33
+0.001686
+===================================Timestamp:2026-05-29 18:06:04
+Model Name:Resnet50
+Highest Val Acc:0.9998
+Default Test Acc:0.8081
+Test ROC-AUC:0.8887
+Test EER (%):17.10
+Optimal Threshold:0.339760====================================

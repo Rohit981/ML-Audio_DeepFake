@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from Transformer.TransformerModel import MultiHeadAttention, PositionWiseFeedForward
+from config import AudioConfig
 
 
 #Patch encoding to create patches of images and will be used as positional encoder
@@ -75,11 +76,11 @@ class EncoderBlock(nn.Module):
 #Transformer layer uses the encoder block and does classification
 class TransformerLayer(nn.Module):
     def __init__(self,
-                 d_model=128,
-                 n_heads=4,
-                 num_layers=4,
-                 d_ff=512,
-                 num_classes=1):
+                 d_model,
+                 n_heads,
+                 num_layers,
+                 d_ff,
+                 num_classes):
         super().__init__()
 
         #Regularization
@@ -110,32 +111,24 @@ class TransformerLayer(nn.Module):
 
 #Vision Transformer
 class VIT(nn.Module):
-    def __init__(self,
-                 img_size=128,
-                 patch_size=16,
-                 in_channels=1,
-                 d_model=128,
-                 n_heads=4,
-                 num_layers=4,
-                 d_ff=512,
-                 num_classes=1):
+    def __init__(self, config: AudioConfig):
         super().__init__()
 
         #Convert image space to token sequence space
         self.patchembedding = PatchEmbedding(
-            img_size=img_size,
-            patch_size=patch_size,
-            in_channels=in_channels,
-            embed_dim=d_model
+            img_size=config.img_size,
+            patch_size=config.patch_size,
+            in_channels=config.in_channels,
+            embed_dim=config.d_model
         )
 
         #Process token using multi headed self attention
         self.transformerLayer = TransformerLayer(
-            d_model=d_model,
-            n_heads=n_heads,
-            num_layers=num_layers,
-            d_ff=d_ff,
-            num_classes=num_classes
+            d_model=config.d_model,
+            n_heads=config.n_heads,
+            num_layers=config.num_layers,
+            d_ff=config.d_ff,
+            num_classes=config.num_classes
         )
     
     def forward(self,x):
