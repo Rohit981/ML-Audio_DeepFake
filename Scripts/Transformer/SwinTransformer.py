@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as f
+from config import AudioConfig
 
 #Define window partition
 def window_partition(x,win):
@@ -12,11 +12,11 @@ def window_partition(x,win):
     
 #Define window reverse to generate tokens for the images
 def window_reverse(windows, win, H,W):
-    B = windows.shape[0]/(H//win * W//win)
+    B = windows.shape[0]//(H//win * W//win)
 
     #Set the channel to -1 as it changes based on different transformer
     x = windows.view(B,H//win, W//win, win,win,-1)
-    x = x.permute(0,1,3,2,4,5)
+    x = x.permute(0,1,3,2,4,5).contiguous()
     x = x.reshape(B,H,W,-1)
     return x
 
@@ -48,7 +48,7 @@ class WindowAttention(nn.Module):
         
         #Calculate the relative position
         rel = coords_flatten[:,:,None] - coords_flatten[:,None,:]
-        rel = rel.permute[1,2,0]
+        rel = rel.permute(1,2,0)
 
         #Delta X
         rel[:,:,0] = rel[:,:,0] + (win-1)
@@ -65,12 +65,12 @@ class WindowAttention(nn.Module):
     
     def forward(self,x, mask=None):
         B_,N,C = x.shape
-        q = self.Q(x)
-        k = self.K(x)
-        v = self.V(x)
+        q = self.Q(x).reshape(B_, N, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
+        k = self.K(x).reshape(B_, N, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
+        v = self.V(x).reshape(B_, N, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
 
-        q = q * self.scale
-        attn = q @ k.transpose(-2,-1)
+        # q = q * self.scale
+        attn = (q @ k.transpose(-2,-1)) * self.scale
         rb = self.rel_bias[self.pos_index.view(-1)] .view(N,N,-1)
         attn = attn + rb.permute(2,0,1).unsqueeze(0)
 
@@ -80,7 +80,7 @@ class WindowAttention(nn.Module):
             attn = attn + mask.unsqueeze(1).unsqueeze(0)
             attn = attn.view(-1, self.n_heads, N,N)
         
-        attn = attn.softmax(dim = -1)
+        attn = torch.softmax(attn,dim=-1)
         out = (attn @ v).transpose(1,2).reshape(B_,N,C)
         out = self.proj(out)
         return out
@@ -96,7 +96,7 @@ class SwinBlock(nn.Module):
         super().__init__()
 
         self.d_model = d_model
-        self.res = res
+        self.res = (int(res[0]), int(res[1]))
         self.win = win
         self.shift = shift
 
@@ -112,7 +112,7 @@ class SwinBlock(nn.Module):
 
         H,W = res
         if shift > 0:
-            self.mask = self.create_mask(H,W, win,shift)
+            self.register_buffer("mask", self.create_mask(H,W,win,shift))
         else:
             self.mask = None
     
@@ -120,9 +120,9 @@ class SwinBlock(nn.Module):
         img_mask = torch.zeros((1,H,W,1))
         count = 0
 
-        for h in (slice(0,-win), (slice(-win,-shift)), slice(-shift, None)):
-            for w in (slice(0,-win), (slice(-win,-shift)), slice(-shift, None)):
-                img_mask[:,h,w,:]
+        for h in (slice(0,-win), slice(-win,-shift), slice(-shift, None)):
+            for w in (slice(0,-win), slice(-win,-shift), slice(-shift, None)):
+                img_mask[:,h,w,:] = count
                 count +=1
         
         mask = window_partition(img_mask, win)
@@ -132,9 +132,10 @@ class SwinBlock(nn.Module):
         return mask
     
     def forward(self,x):
+        #L is total number of tokens
         B,L,C = x.shape
 
-        H,W = self.res
+        H,W = int(self.res[0]), int(self.res[1])
 
         residual = x
         x = self.norm1(x)
@@ -145,7 +146,7 @@ class SwinBlock(nn.Module):
             x = torch.roll(x, shifts=(-self.shift, -self.shift), dims=(1,2))
         
         win_x = window_partition(x, self.win).view(-1,self.win*self.win, C)
-        attn_out = self.attn(win_x, self.mask.to(x.device) if self.mask is not None else None)
+        attn_out = self.attn(win_x, self.mask if self.mask is not None else None)
         x = window_reverse(attn_out,self.win,H,W)
 
         #Reverse shift to not have shift anymore
@@ -159,6 +160,124 @@ class SwinBlock(nn.Module):
         x = self.mlp(x)
         x = residual2 + x
         return x
+    
+#Patch Merging
+class PatchMerging(nn.Module):
+    def __init__(self,
+                 d_model):
+        super().__init__()
+        self.d_model = d_model
+
+        self.reduction = nn.Linear(4*d_model, 2*d_model, bias=False)
+        self.norm = nn.LayerNorm(4*d_model)
+
+    def forward(self, x, H,W):
+        B,L,C = x.shape
+        x = x.view(B,H,W,C)
+
+        #Extract four patches
+        x0 = x[:,0::2,0::2,:].reshape(B,-1,C)
+        x1 = x[:,1::2,0::2,:].reshape(B,-1,C)
+        x2 = x[:,0::2,1::2,:].reshape(B,-1,C)
+        x3 = x[:,1::2,1::2,:].reshape(B,-1,C)
+
+        #Concat these batches
+        x = torch.cat([x0,x1,x2,x3], dim=-1)
+        # x = x.view(B, -1, 4 * C)
+
+        x = self.norm(x)
+        x = self.reduction(x)
+        return x
+
+#2 stage Swin Transformer
+class Swin(nn.Module):
+    def __init__(self,
+                 config:AudioConfig):
+        super().__init__()
+        self.architecture_name = "SwinTransformer"
+        self.d_model = config.d_model
+        win = 8
+        self.patch_embed = nn.Conv2d(1,self.d_model, kernel_size=4,stride=4)
+        initial_res = (32,32)
+
+        #Stage 1
+        self.stage1_block = nn.Sequential(
+            #No shift swin block
+            SwinBlock(d_model=self.d_model,
+                      shift=0,
+                      n_heads=config.n_heads,
+                      diff=config.d_ff,
+                      win=win,
+                      res=initial_res),
+
+            #Shift swin block
+            SwinBlock(d_model=self.d_model,
+                      shift=win//2,
+                      n_heads=config.n_heads,
+                      diff=config.d_ff,
+                      win=win,
+                      res=initial_res)
+        )
+
+        #Patch merging
+        self.patch_merge = PatchMerging(self.d_model)
+        stage2_res = (initial_res[0]//2,initial_res[1]//2)
+        merged_dim = self.d_model*2
+
+        #Stage 2
+        self.stage2_block = nn.Sequential(
+            #No shift swin block
+            SwinBlock(d_model=merged_dim,
+                      shift=0,
+                      n_heads=config.n_heads,
+                      diff=config.d_ff,
+                      win=win//2,
+                      res=stage2_res),
+
+            #Shift swin block
+            SwinBlock(d_model=merged_dim,
+                      shift=win//4,
+                      n_heads=config.n_heads,
+                      diff=config.d_ff*2,
+                      win=win//2,
+                      res=stage2_res)
+            )
+       
+        self.norm = nn.LayerNorm(merged_dim)
+        self.fc = nn.Linear(merged_dim, config.num_classes)
+    
+    def forward(self,x):
+        x = self.patch_embed(x)
+        B,C,H,W = x.shape
+        x = x.flatten(2).transpose(1,2)
+        #Number of tokens
+        L = H*W
+
+        #Stage 1 transformer
+        x = self.stage1_block(x)
+
+        #Patch merging
+        x = self.patch_merge(x,H,W)
+        H,W = H//2, W//2
+        
+
+        #Stage 2 transformer
+        x = self.stage2_block(x)
+
+        #Classification layer
+        x = self.norm(x)
+        x = x.mean(1) #Global average Pooling
+        x = self.fc(x)
+
+        return x
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,42 @@
+{
+    "SwinTransformer": {
+        "timestamp": "2026-06-09 19:13:58",
+        "Classification Report": {
+            "bonafide": {
+                "precision": 0.49007758877946883,
+                "recall": 0.8931339225016995,
+                "f1-score": 0.6328821234163495,
+                "support": 7355.0
+            },
+            "spoof": {
+                "precision": 0.9864091435685508,
+                "recall": 0.8930058545443161,
+                "f1-score": 0.9373865176847553,
+                "support": 63882.0
+            },
+            "accuracy": 0.8930190771649564,
+            "macro avg": {
+                "precision": 0.7382433661740098,
+                "recall": 0.8930698885230078,
+                "f1-score": 0.7851343205505524,
+                "support": 71237.0
+            },
+            "weighted avg": {
+                "precision": 0.9351644450906011,
+                "recall": 0.8930190771649564,
+                "f1-score": 0.9059473804408494,
+                "support": 71237.0
+            }
+        },
+        "Confusion Matrix": [
+            [
+                7179,
+                13887
+            ],
+            [
+                176,
+                49995
+            ]
+        ]
+    }
+}

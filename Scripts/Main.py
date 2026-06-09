@@ -4,7 +4,7 @@ import os
 from Resnet50 import CustomResnet50
 from Trainer import Trainer
 import torch.nn as nn  
-from Transformer import CnnTrasnformer,VisionTransformer
+from Transformer import CnnTrasnformer,VisionTransformer,SwinTransformer
 import evaluation
 from config import AudioConfig
 from Utils.Leaderboard import ResultLeaderboard
@@ -38,8 +38,11 @@ def main():
     #Vision Transformer
     VIT = VisionTransformer.VIT(config)
 
+    #Swin Transformer
+    swin = SwinTransformer.Swin(config)
+
     #Track of active model
-    active_model = CNN_Transformer
+    active_model = swin
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 

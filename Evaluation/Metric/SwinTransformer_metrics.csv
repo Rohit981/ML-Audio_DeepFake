@@ -1,0 +1,59 @@
+========================================
+INITIAL EVALUATION: SwinTransformer
+========================================
+Model Name: SwinTransformer
+Epochs: 100
+Training Time: 866.92 seconds
+Highest Val Acc: 0.9804
+Default Test Acc: 0.7183
+Test ROC-AUC: 0.9404
+Test EER (%): 12.02%
+Optimal Threshold: 0.172077
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: SwinTransformer
+Epochs: 100
+Training Time: 1419.29 seconds
+Highest Val Acc: 0.9859
+Default Test Acc: 0.7440
+Test ROC-AUC: 0.9237
+Test EER (%): 13.98%
+Optimal Threshold: 0.243696
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: SwinTransformer
+Epochs: 100
+Training Time: 613.56 seconds
+Highest Val Acc: 0.9859
+Default Test Acc: 0.7681
+Test ROC-AUC: 0.9492
+Test EER (%): 11.03%
+Optimal Threshold: 0.145844
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: SwinTransformer
+Epochs: 100
+Training Time: 676.31 seconds
+Highest Val Acc: 0.9899
+Default Test Acc: 0.8288
+Test ROC-AUC: 0.9518
+Test EER (%): 10.24%
+Optimal Threshold: 0.217565
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: SwinTransformer
+Epochs: 100
+Training Time: 579.67 seconds
+Highest Val Acc: 0.9899
+Default Test Acc: 0.8026
+Test ROC-AUC: 0.9500
+Test EER (%): 10.70%
+Optimal Threshold: 0.160369

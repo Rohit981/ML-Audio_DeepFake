@@ -5,4 +5,5 @@ Model Name           | Highest Val Acc | Test Acc   | Test ROC-AUC | Test EER (%
 CNNTrasnformer       | 0.9886          | 0.5186     | 0.9810       | 6.54%       
 Resnet18             | 0.9999          | 0.8596     | 0.9692       | 9.12%       
 Resnet50             | 0.9997          | 0.8294     | 0.9706       | 9.27%       
+SwinTransformer      | 0.9899          | 0.8288     | 0.9518       | 10.24%      
 VIT                  | 0.9610          | 0.8625     | 0.9580       | 10.63%      
