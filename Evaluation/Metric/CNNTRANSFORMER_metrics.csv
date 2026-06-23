@@ -225,3 +225,533 @@ Default Test Acc: 0.8787
 Test ROC-AUC: 0.9488
 Test EER (%): 12.13%
 Optimal Threshold: 0.000263
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 616.81 seconds
+Highest Val Acc: 0.9873
+Default Test Acc: 0.8204
+Test ROC-AUC: 0.9128
+Test EER (%): 17.96%
+Optimal Threshold: 0.000067
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 334.09 seconds
+Highest Val Acc: 0.9873
+Default Test Acc: 0.8977
+Test ROC-AUC: 0.9607
+Test EER (%): 10.24%
+Optimal Threshold: 0.000117
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 334.31 seconds
+Highest Val Acc: 0.9873
+Default Test Acc: 0.8977
+Test ROC-AUC: 0.9607
+Test EER (%): 10.24%
+Optimal Threshold: 0.000117
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 593.21 seconds
+Highest Val Acc: 0.9873
+Default Test Acc: 0.8747
+Test ROC-AUC: 0.9445
+Test EER (%): 12.52%
+Optimal Threshold: 0.000096
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 587.73 seconds
+Highest Val Acc: 0.9873
+Default Test Acc: 0.8747
+Test ROC-AUC: 0.9445
+Test EER (%): 12.52%
+Optimal Threshold: 0.000096
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 314.03 seconds
+Highest Val Acc: 0.9948
+Default Test Acc: 0.8747
+Test ROC-AUC: 0.9452
+Test EER (%): 12.54%
+Optimal Threshold: 0.000293
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 442.01 seconds
+Highest Val Acc: 0.9965
+Default Test Acc: 0.8820
+Test ROC-AUC: 0.9496
+Test EER (%): 11.80%
+Optimal Threshold: 0.000095
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 780.02 seconds
+Highest Val Acc: 0.9965
+Default Test Acc: 0.8942
+Test ROC-AUC: 0.9591
+Test EER (%): 10.58%
+Optimal Threshold: 0.000059
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 769.69 seconds
+Highest Val Acc: 0.9792
+Default Test Acc: 0.8928
+Test ROC-AUC: 0.9581
+Test EER (%): 10.71%
+Optimal Threshold: 0.000054
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 540.75 seconds
+Highest Val Acc: 0.9901
+Default Test Acc: 0.9158
+Test ROC-AUC: 0.9713
+Test EER (%): 8.42%
+Optimal Threshold: 0.000031
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 592.14 seconds
+Highest Val Acc: 0.9663
+Default Test Acc: 0.8560
+Test ROC-AUC: 0.9374
+Test EER (%): 14.43%
+Optimal Threshold: 0.000052
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 618.72 seconds
+Highest Val Acc: 0.9593
+Default Test Acc: 0.8355
+Test ROC-AUC: 0.9239
+Test EER (%): 16.45%
+Optimal Threshold: 0.000032
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 487.36 seconds
+Highest Val Acc: 0.9321
+Default Test Acc: 0.8571
+Test ROC-AUC: 0.9356
+Test EER (%): 14.29%
+Optimal Threshold: 0.000022
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 1339.98 seconds
+Highest Val Acc: 0.9238
+Default Test Acc: 0.8573
+Test ROC-AUC: 0.9373
+Test EER (%): 14.26%
+Optimal Threshold: 0.000030
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 668.84 seconds
+Highest Val Acc: 0.9622
+Default Test Acc: 0.7903
+Test ROC-AUC: 0.8841
+Test EER (%): 20.97%
+Optimal Threshold: 0.000033
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 538.01 seconds
+Highest Val Acc: 0.9866
+Default Test Acc: 0.9028
+Test ROC-AUC: 0.9656
+Test EER (%): 9.72%
+Optimal Threshold: 0.000018
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 414.12 seconds
+Highest Val Acc: 0.9845
+Default Test Acc: 0.8961
+Test ROC-AUC: 0.9597
+Test EER (%): 10.39%
+Optimal Threshold: 0.000111
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 412.65 seconds
+Highest Val Acc: 0.9733
+Default Test Acc: 0.8166
+Test ROC-AUC: 0.9037
+Test EER (%): 18.34%
+Optimal Threshold: 0.000233
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 409.30 seconds
+Highest Val Acc: 0.9712
+Default Test Acc: 0.8773
+Test ROC-AUC: 0.9489
+Test EER (%): 12.28%
+Optimal Threshold: 0.000149
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 415.66 seconds
+Highest Val Acc: 0.9703
+Default Test Acc: 0.8922
+Test ROC-AUC: 0.9563
+Test EER (%): 10.78%
+Optimal Threshold: 0.000144
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 422.78 seconds
+Highest Val Acc: 0.9685
+Default Test Acc: 0.8146
+Test ROC-AUC: 0.9053
+Test EER (%): 18.55%
+Optimal Threshold: 0.000154
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 413.87 seconds
+Highest Val Acc: 0.9769
+Default Test Acc: 0.8858
+Test ROC-AUC: 0.9551
+Test EER (%): 11.39%
+Optimal Threshold: 0.000064
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 468.76 seconds
+Highest Val Acc: 0.8754
+Default Test Acc: 0.8767
+Test ROC-AUC: 0.9467
+Test EER (%): 12.33%
+Optimal Threshold: 0.000021
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 442.22 seconds
+Highest Val Acc: 0.9114
+Default Test Acc: 0.8331
+Test ROC-AUC: 0.9215
+Test EER (%): 16.70%
+Optimal Threshold: 0.000025
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 2450.35 seconds
+Highest Val Acc: 0.9625
+Default Test Acc: 0.8723
+Test ROC-AUC: 0.9509
+Test EER (%): 12.78%
+Optimal Threshold: 0.000081
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 100
+Training Time: 442.08 seconds
+Highest Val Acc: 0.9315
+Default Test Acc: 0.8561
+Test ROC-AUC: 0.9383
+Test EER (%): 14.38%
+Optimal Threshold: 0.000101
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 442.40 seconds
+Highest Val Acc: 0.9270
+Default Test Acc: 0.8472
+Test ROC-AUC: 0.9317
+Test EER (%): 15.28%
+Optimal Threshold: 0.000087
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 420.15 seconds
+Highest Val Acc: 0.9486
+Default Test Acc: 0.8473
+Test ROC-AUC: 0.9317
+Test EER (%): 15.28%
+Optimal Threshold: 0.000084
+Batch Size: 128
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 562.95 seconds
+Highest Val Acc: 0.9858
+Default Test Acc: 0.8942
+Test ROC-AUC: 0.9625
+Test EER (%): 10.56%
+Optimal Threshold: 0.000056
+Batch Size: 64
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 565.10 seconds
+Highest Val Acc: 0.9712
+Default Test Acc: 0.8905
+Test ROC-AUC: 0.9598
+Test EER (%): 10.96%
+Optimal Threshold: 0.000047
+Batch Size: 64
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 418.63 seconds
+Highest Val Acc: 0.9362
+Default Test Acc: 0.8823
+Test ROC-AUC: 0.9559
+Test EER (%): 11.77%
+Optimal Threshold: 0.000048
+Batch Size: 64
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 421.71 seconds
+Highest Val Acc: 0.9329
+Default Test Acc: 0.8830
+Test ROC-AUC: 0.9563
+Test EER (%): 11.69%
+Optimal Threshold: 0.000045
+Batch Size: 64
+Learning Rate: 0.0005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 424.50 seconds
+Highest Val Acc: 0.9642
+Default Test Acc: 0.8633
+Test ROC-AUC: 0.9449
+Test EER (%): 13.66%
+Optimal Threshold: 0.000042
+Batch Size: 128
+Learning Rate: 0.0005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 576.19 seconds
+Highest Val Acc: 0.9315
+Default Test Acc: 0.8827
+Test ROC-AUC: 0.9561
+Test EER (%): 11.73%
+Optimal Threshold: 0.000038
+Batch Size: 64
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 447.02 seconds
+Highest Val Acc: 0.9350
+Default Test Acc: 0.8507
+Test ROC-AUC: 0.9362
+Test EER (%): 14.94%
+Optimal Threshold: 0.000034
+Batch Size: 128
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 442.62 seconds
+Highest Val Acc: 0.9354
+Default Test Acc: 0.8521
+Test ROC-AUC: 0.9371
+Test EER (%): 14.78%
+Optimal Threshold: 0.000032
+Batch Size: 128
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 447.70 seconds
+Highest Val Acc: 0.9354
+Default Test Acc: 0.8529
+Test ROC-AUC: 0.9374
+Test EER (%): 14.71%
+Optimal Threshold: 0.000031
+Batch Size: 128
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 1037.63 seconds
+Highest Val Acc: 0.9572
+Default Test Acc: 0.8024
+Test ROC-AUC: 0.8980
+Test EER (%): 19.76%
+Optimal Threshold: 0.000065
+Batch Size: 64
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 767.86 seconds
+Highest Val Acc: 0.9661
+Default Test Acc: 0.8146
+Test ROC-AUC: 0.9079
+Test EER (%): 18.55%
+Optimal Threshold: 0.000031
+Batch Size: 64
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 200
+Training Time: 1736.15 seconds
+Highest Val Acc: 0.9985
+Default Test Acc: 0.9204
+Test ROC-AUC: 0.9769
+Test EER (%): 7.95%
+Optimal Threshold: 0.000062
+Batch Size: 128
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 300
+Training Time: 1032.71 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.8540
+Test ROC-AUC: 0.9431
+Test EER (%): 14.60%
+Optimal Threshold: 0.000026
+Batch Size: 128
+Learning Rate: 0.005
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: CNNTRANSFORMER
+Epochs: 300
+Training Time: 663.05 seconds
+Highest Val Acc: 0.9848
+Default Test Acc: 0.8373
+Test ROC-AUC: 0.9269
+Test EER (%): 16.26%
+Optimal Threshold: 0.000032
+Batch Size: 128
+Learning Rate: 0.005

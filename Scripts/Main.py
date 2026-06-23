@@ -1,5 +1,4 @@
 import data
-import torch
 import os
 from Resnet50 import CustomResnet50
 from Trainer import Trainer
@@ -9,14 +8,15 @@ import evaluation
 from config import AudioConfig
 from Utils.Leaderboard import ResultLeaderboard
 
-
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
 
 def main():
-    
+
     #Initialize Config class
     config = AudioConfig()
-
+    
+    #Set Randoom seed
+    config.set_seed(123)
 
     #Instantiate Datasets
     train_dataset = data.ASVpoofDataset(part="train", precompute=False)
@@ -45,20 +45,21 @@ def main():
     deit = DEIT.DEIT(config)
 
     #Track of active model
-    active_model = CNN_Transformer
+    active_model = Resnet_18
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
                                    device=config.device,
-                                   loss_fn=loss_fn,
-                                   learning_rate=config.learning_rate, 
+                                   loss_fn=loss_fn, 
                                    batch_size=config.batch_size,
                                    sampler=sampler,
                                    start_from_checkpoint=config.start_from_checkpoint,
                                    Temperature=config.Temperature,
                                    alpha=config.alpha,
                                    distil_type=config.distil_type,
-                                   optimal_threshold=config.optimal_threshold)
+                                   optimal_threshold=config.optimal_threshold,
+                                   epochs=config.n_epochs,
+                                   learning_rate=config.learning_rate)
 
     trainer.RunEpochs(train_dataset=train_dataset,
                       test_dataset=test_dataset,
@@ -91,3 +92,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

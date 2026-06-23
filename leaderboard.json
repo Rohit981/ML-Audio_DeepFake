@@ -1,58 +1,51 @@
 {
-    "CNNTRANSFORMER": {
-        "Highest Val Acc": 0.987280631138303,
-        "Test Acc": 0.9186097112455606,
-        "Test ROC-AUC": 0.9719083575042368,
-        "Test EER (%)": 8.14411964649898,
-        "Training Time (s)": 359.6235704421997
-    },
-    "DEIT_hard": {
-        "Highest Val Acc": 0.9954113669296409,
-        "Test Acc": 0.8958827575557645,
-        "Test ROC-AUC": 0.9526168702317842,
-        "Test EER (%)": 10.414683888511217,
-        "Training Time (s)": 220.48891305923462
-    },
     "SwinTransformer": {
-        "Highest Val Acc": 0.9915472548703912,
-        "Test Acc": 0.9077305332902845,
-        "Test ROC-AUC": 0.9555015630343768,
-        "Test EER (%)": 9.245411284840245,
-        "Training Time (s)": 852.8238914012909
-    },
-    "Resnet50": {
-        "Highest Val Acc": 0.9999194976654323,
-        "Test Acc": 0.9106644019259654,
-        "Test ROC-AUC": 0.9740827097701017,
-        "Test EER (%)": 8.932698844323589,
-        "Training Time (s)": 949.1512784957886
+        "Highest Val Acc": 0.9961761391080342,
+        "Test Acc": 0.929727529233404,
+        "Test ROC-AUC": 0.9737959844428495,
+        "Test EER (%)": 7.029231815091775,
+        "Training Time (s)": 1399.930732011795
     },
     "Resnet18": {
-        "Highest Val Acc": 0.9998792464981484,
-        "Test Acc": 0.9252495192105227,
-        "Test ROC-AUC": 0.9829630764029134,
-        "Test EER (%)": 7.464309993201904,
-        "Training Time (s)": 233.0244104862213
+        "Highest Val Acc": 0.998913218483336,
+        "Test Acc": 0.9189887277678734,
+        "Test ROC-AUC": 0.9771698567023569,
+        "Test EER (%)": 8.103331067301156,
+        "Training Time (s)": 332.13487243652344
     },
-    "DEIT_Soft": {
-        "Highest Val Acc": 0.9971421671228465,
-        "Test Acc": 0.8883585777054059,
-        "Test ROC-AUC": 0.949351751341502,
-        "Test EER (%)": 11.162474507138,
-        "Training Time (s)": 122.90184354782104
-    },
-    "DEIT_Hard": {
-        "Highest Val Acc": 0.9954113669296409,
-        "Test Acc": 0.9008661229417297,
-        "Test ROC-AUC": 0.9560032038591887,
-        "Test EER (%)": 9.91162474507138,
-        "Training Time (s)": 139.25780606269836
+    "CNNTRANSFORMER": {
+        "Highest Val Acc": 0.9985107068104975,
+        "Test Acc": 0.9203924926653284,
+        "Test ROC-AUC": 0.9769322617280574,
+        "Test EER (%)": 7.953772943575799,
+        "Training Time (s)": 1736.145324230194
     },
     "VIT": {
-        "Highest Val Acc": 0.9954113669296409,
-        "Test Acc": 0.8996448474809439,
-        "Test ROC-AUC": 0.956726136656064,
-        "Test EER (%)": 10.033990482664853,
-        "Training Time (s)": 168.90125060081482
+        "Highest Val Acc": 0.9969409112864273,
+        "Test Acc": 0.8957985316619173,
+        "Test ROC-AUC": 0.9591282627207953,
+        "Test EER (%)": 10.414683888511217,
+        "Training Time (s)": 256.7079916000366
+    },
+    "Resnet50": {
+        "Highest Val Acc": 0.9998792464981484,
+        "Test Acc": 0.9220489352443253,
+        "Test ROC-AUC": 0.980819036866728,
+        "Test EER (%)": 7.7906186267845,
+        "Training Time (s)": 3995.494405269623
+    },
+    "DEIT_Hard": {
+        "Highest Val Acc": 0.9958943809370472,
+        "Test Acc": 0.9028594690961158,
+        "Test ROC-AUC": 0.9626223791992761,
+        "Test EER (%)": 9.7212780421482,
+        "Training Time (s)": 199.9031925201416
+    },
+    "DEIT_Soft": {
+        "Highest Val Acc": 0.9944855900821123,
+        "Test Acc": 0.8882462765136095,
+        "Test ROC-AUC": 0.9466140452152061,
+        "Test EER (%)": 11.162474507138,
+        "Training Time (s)": 1043.2581415176392
     }
 }

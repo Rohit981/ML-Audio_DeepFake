@@ -8,6 +8,7 @@ import os
 import csv
 from config import AudioConfig
 import json
+from adjustText import adjust_text
 
 
 class Evaluation_metric:
@@ -36,6 +37,8 @@ class Evaluation_metric:
         self.eer_value = config.eer_value
         self.optimal_threshold = config.optimal_threshold
         self.test_acc = config.test_acc
+        self.batch_size = config.batch_size
+        self.learning_rate = config.learning_rate
         self.metric_save_dir = r"D:\Deep Neural Network\ML-Audio_DeepFake\Evaluation\Metric"
 
         self.forward()
@@ -81,6 +84,10 @@ class Evaluation_metric:
             f.write(f"Test ROC-AUC: {metrics_dict['Test ROC-AUC']:.4f}\n")
             f.write(f"Test EER (%): {metrics_dict['Test EER (%)']:.2f}%\n")
             f.write(f"Optimal Threshold: {metrics_dict['Optimal Threshold']:.6f}\n")
+            f.write(f"Batch Size: {metrics_dict['Batch Size']}\n")
+            f.write(f"Learning Rate: {metrics_dict['Learning Rate']}\n")
+
+
         print(f"Successfully logged metrics to {filepath}")
     
     #Save metrics in CSV File
@@ -94,7 +101,9 @@ class Evaluation_metric:
             "Default Test Acc": round(test_acc,4),
             "Test ROC-AUC": round(roc_score,4),
             "Test EER (%)": round(eer_value,2),
-            "Optimal Threshold": round(opt_threshold,6)
+            "Optimal Threshold": round(opt_threshold,6),
+            "Batch Size": int(self.batch_size),
+            "Learning Rate": float(self.learning_rate)
         }
 
         #Save the File
@@ -135,6 +144,7 @@ class Evaluation_metric:
             "Test EER (%)": float(eer_value),
             "Training Time (s)": float(self.total_training_time) # Captured from timer
             }
+        
 
         # Write back out to the master ledger file
         with open(json_path, "w", encoding="utf-8") as f:
@@ -250,8 +260,7 @@ class Evaluation_metric:
         plt.figure(figsize=(12,5))
         plt.grid(True,which="both",ls="--", alpha=0.5)
 
-        #Array to 
-
+    
         #Loop through every model present in the JSON file dynamically
         for model_name, metrics in leaderboard_data.items():
             if model_name == "DEIT_hard" or "DEIT_Hard" in model_name.upper() and "_" not in model_name:
@@ -260,6 +269,7 @@ class Evaluation_metric:
             #Pull coordinates from the dict
             training_time = metrics.get("Training Time (s)", 0.0)
             test_acc = metrics.get("Test Acc",0.0)*100 #Convert to percentage
+            
 
             #Don't plot if the metrics are not recorded
             if training_time == 0 or test_acc == 0:

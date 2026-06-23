@@ -1,5 +1,7 @@
 from dataclasses import dataclass,field
 import torch
+import random
+import numpy as np
 
 
 @dataclass
@@ -31,13 +33,21 @@ class AudioConfig:
      input_layer_channels : list = field(default_factory = lambda:[32,64,128])
 
      #--------------------Training and Optimization-------------------------
-     batch_size: int = 64
-     learning_rate: float = 1e-4
-     n_epochs : int = 100
-     patience : int = 10
+     batch_size: int = 128
+     learning_rate: float = 5e-3
+     n_epochs : int = 300
      start_from_checkpoint : bool = True
      Temperature: float = 1.0 #Only use if distill is soft
      alpha: float = 0.5 #50/50 balance between ground truth and distillation
-     distil_type: str = "Hard" #Option hard or soft
+     distil_type: str = "Soft" #Option hard or soft
+
+     def set_seed(self,seed=42):
+          random.seed(seed)
+          np.random.seed(seed)
+          torch.manual_seed(seed)
+          torch.cuda.manual_seed(seed)
+          torch.cuda.manual_seed_all(seed) # if using multi-GPU
+          torch.backends.cudnn.deterministic = True
+          torch.backends.cudnn.benchmark = False
 
      

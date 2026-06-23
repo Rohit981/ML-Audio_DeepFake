@@ -16,14 +16,16 @@ class ModelTrainer(nn.Module):
                  model, 
                  device, 
                  loss_fn,
-                 learning_rate, 
-                 batch_size,sampler,
+                 batch_size,
+                 sampler,
                  start_from_checkpoint=False,
                  teacher_present=False,
                  Temperature = 1.0,
                  alpha = 0.5,
                  distil_type = "hard",
-                 optimal_threshold = None):
+                 optimal_threshold = None,
+                 epochs = 0,
+                 learning_rate=0.0):
         super(ModelTrainer,self).__init__()
         
         #Intialize variables for training and evaluation
@@ -79,7 +81,7 @@ class ModelTrainer(nn.Module):
 
         #Initilaize a LR scheduler
         self.scheduler = CosineAnnealingLR(self.optimizer, 
-                                            T_max=100,
+                                            T_max=epochs,
                                             eta_min=1e-6)
         
         #Create save path
@@ -98,16 +100,16 @@ class ModelTrainer(nn.Module):
     #Load Resnet50 Model as teacher model
     def LoadResnetModel(self):
         #Load the custom Resnet 50 model
-        teacher_resnet = CustomResnet50.Resnet18(num_classes=1)
+        teacher_resnet = CustomResnet50.Resnet50(num_classes=1)
         # teacher_resnet.fc = nn.Linear(teacher_resnet.fc.in_features, 1)
 
-        #Rebuild and load the saved checkpoints from optimized Resnet18 model from the project
-        checkpoint = torch.load("./Models/Resnet18.pt", map_location=self.device)
+        #Rebuild and load the saved checkpoints from optimized Resnet50 model from the project
+        checkpoint = torch.load("./Models/Resnet50.pt", map_location=self.device)
         teacher_resnet.load_state_dict(checkpoint['model_state_dict'])
-
-        #Freeze the teacher
         teacher_resnet.to(self.device)
         teacher_resnet.eval()
+
+        #Freeze the teacher
         for param in teacher_resnet.parameters():
             param.requires_grad = False
 
@@ -115,6 +117,11 @@ class ModelTrainer(nn.Module):
 
     #Set optimizer
     def set_optimizer(self):
+        # if self.model_name == "CNNTRANSFORMER":
+        #     self.learning_rate = 1e-4
+        # else:
+        #     self.learning_rate = 1e-5
+            
         self.optimizer = optim.AdamW(self.model.parameters(), lr=self.learning_rate,weight_decay=1e-3)
         
     
@@ -387,7 +394,7 @@ class ModelTrainer(nn.Module):
         start_time = time.time()
 
         #Initializing early stopping variables
-        patience = 10 #Stop training if val_loss doesn't improve for 10 epochs straight
+        patience = 15 #Stop training if val_loss doesn't improve for 15 epochs straight
         patience_counter = 0
         best_val_loss = float('inf')
         
@@ -406,18 +413,21 @@ class ModelTrainer(nn.Module):
                 f" Val Loss: {val_loss:.4f} |"
                 f"F1 score: {val_f1:.4f} |"
                 f"Recall score: {val_recall:.4f}")
-            
-            #Check if the current validation accuracy is greater than the previous best
-            if val_acc > self.best_valid_acc:
-                self.save_checkpoint(epoch,val_acc)
-            
+
             #Early Stopping to halt model training before overfitting
             current_val_loss = val_loss 
+
+            # if val_acc > self.best_valid_acc:
+               
 
             #Check for improvement
             if current_val_loss < best_val_loss:
                 best_val_loss = current_val_loss
                 patience_counter = 0 #Reset the clock because model improved
+
+                #Save the checkpoint
+                self.save_checkpoint(epoch,val_acc)
+
             else:
                 patience_counter +=1
                 print(f"Validation loss did not improve. Early Stopping counter: {patience_counter}")
