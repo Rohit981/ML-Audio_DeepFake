@@ -203,7 +203,7 @@ class ModelTrainer(nn.Module):
                     self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
                     self.scheduler.load_state_dict(checkpoint['lr_scheduler_state_dict'])
                     self.start_epoch = checkpoint['epoch'] + 1
-                    self.best_val_eer = checkpoint.get('best_val_eer', 7.14)
+                    self.best_val_eer = checkpoint['best_val_eer']
                     print(f"=> Resuming full training state from epoch {self.start_epoch}")
 
                 except (ValueError, KeyError):
@@ -211,7 +211,8 @@ class ModelTrainer(nn.Module):
                     print(" Successfully loaded pre-trained model weights! Starting optimizer fresh for fine-tuning.")
                     self.start_epoch = checkpoint['epoch'] + 1
                     # Manually anchor your target baseline EER to beat!
-                    self.best_val_eer = 7.14
+                    self.best_val_eer = checkpoint['best_val_eer']
+                    # self.best_val_eer = 7.14
 
             print("Checkpoint Loaded starting from epoch:", self.start_epoch)
         else:
@@ -436,7 +437,7 @@ class ModelTrainer(nn.Module):
         start_time = time.time()
 
         #Initializing early stopping variables
-        patience = 15 #Stop training if val_loss doesn't improve for 15 epochs straight
+        patience = 10 #Stop training if val_loss doesn't improve for 15 epochs straight
         patience_counter = 0
         best_val_loss = float('inf')
 

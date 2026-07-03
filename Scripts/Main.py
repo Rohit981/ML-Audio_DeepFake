@@ -47,7 +47,7 @@ def main():
     deit = DEIT.DEIT(config)
 
     #Track of active model
-    active_model = swin
+    active_model = CNN_Transformer
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
@@ -62,22 +62,12 @@ def main():
                                    optimal_threshold=config.optimal_threshold,
                                    epochs=config.n_epochs,
                                    learning_rate=config.learning_rate)
+    #FIne Tune Optimizer
+    Optimizer.set_Optimizers(model_name=trainer.model_name, 
+                             active_model=active_model,
+                             trainer=trainer,
+                             config=config)
     
-     
-    #Fine Tune the Swin transformer and we scale down the global LR
-    fine_tune_optimizer = Optimizer.get_swin_optimizer(swin, base_lr=config.learning_rate)
-
-    #Explicity override the default optimizer inside the trainer instance
-    trainer.optimizer = fine_tune_optimizer
-    trainer.best_val_eer = 7.14
-
-    #Force the existing scheduler to point to the new fine tuned 
-    if hasattr(trainer, 'scheduler') and trainer.scheduler is not None:
-        trainer.scheduler.optimizer = trainer.optimizer
-    
-    trainer.scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(trainer.optimizer, T_max=config.n_epochs)
-
-
     trainer.RunEpochs(train_dataset=train_dataset,
                       test_dataset=test_dataset,
                       val_dataset=val_dataset,

@@ -33,8 +33,8 @@ class AudioConfig:
      input_layer_channels : list = field(default_factory = lambda:[32,64,128])
 
      #--------------------Training and Optimization-------------------------
-     batch_size: int = 64
-     learning_rate: float = 2e-5
+     batch_size: int = 128
+     learning_rate: float = 5e-2
      n_epochs : int = 300
      start_from_checkpoint : bool = True
      Temperature: float = 1.0 #Only use if distill is soft
