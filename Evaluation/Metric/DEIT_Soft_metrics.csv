@@ -267,3 +267,171 @@ Test EER (%): 10.75%
 Optimal Threshold: 0.007182
 Batch Size: 32
 Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 300
+Training Time: 83.38 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.8923
+Test ROC-AUC: 0.9557
+Test EER (%): 10.77%
+Optimal Threshold: 0.003165
+Batch Size: 128
+Learning Rate: 5e-06
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 300
+Training Time: 290.09 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.8917
+Test ROC-AUC: 0.9555
+Test EER (%): 10.84%
+Optimal Threshold: 0.001393
+Batch Size: 64
+Learning Rate: 5e-06
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 300
+Training Time: 155.11 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.5591
+Test ROC-AUC: 0.5866
+Test EER (%): 44.09%
+Optimal Threshold: 0.495810
+Batch Size: 64
+Learning Rate: 0.03
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 300
+Training Time: 122.31 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.5567
+Test ROC-AUC: 0.5948
+Test EER (%): 44.32%
+Optimal Threshold: 0.271961
+Batch Size: 64
+Learning Rate: 0.03
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 400
+Training Time: 117.66 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6333
+Test ROC-AUC: 0.6959
+Test EER (%): 36.66%
+Optimal Threshold: 0.505130
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 90.42 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6424
+Test ROC-AUC: 0.7140
+Test EER (%): 35.76%
+Optimal Threshold: 0.439432
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 104.22 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6434
+Test ROC-AUC: 0.7202
+Test EER (%): 35.65%
+Optimal Threshold: 0.505255
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 76.62 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6466
+Test ROC-AUC: 0.7212
+Test EER (%): 35.34%
+Optimal Threshold: 0.488396
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 121.27 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6405
+Test ROC-AUC: 0.7140
+Test EER (%): 35.95%
+Optimal Threshold: 0.492967
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 112.54 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6397
+Test ROC-AUC: 0.7132
+Test EER (%): 36.03%
+Optimal Threshold: 0.511201
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 186.54 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.6455
+Test ROC-AUC: 0.7196
+Test EER (%): 35.45%
+Optimal Threshold: 0.473203
+Batch Size: 128
+Learning Rate: 0.0001
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Soft
+Epochs: 500
+Training Time: 116.85 seconds
+Highest Val Acc: 0.9961
+Default Test Acc: 0.1032
+Test ROC-AUC: 0.5000
+Test EER (%): 0.00%
+Optimal Threshold: inf
+Batch Size: 128
+Learning Rate: 0.0001

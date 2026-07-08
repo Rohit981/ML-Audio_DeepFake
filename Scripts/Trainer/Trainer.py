@@ -43,9 +43,9 @@ class ModelTrainer(nn.Module):
         self.lr_history = []
         self.training_time = 0
         self.start_from_checkpoint = start_from_checkpoint
-
+        
         if optimal_threshold is None:
-            self.optimal_threshold = 0.5
+            self.optimal_threshold = 0.5  
         else:
             self.optimal_threshold = optimal_threshold
 
@@ -108,11 +108,11 @@ class ModelTrainer(nn.Module):
     #Load Resnet50 Model as teacher model
     def LoadResnetModel(self):
         #Load the custom Resnet 50 model
-        teacher_resnet = CustomResnet50.Resnet18(num_classes=1)
+        teacher_resnet = CustomResnet50.Resnet50(num_classes=1)
         # teacher_resnet.fc = nn.Linear(teacher_resnet.fc.in_features, 1)
 
         #Rebuild and load the saved checkpoints from optimized Resnet50 model from the project
-        checkpoint = torch.load("./Models/Resnet18.pt", map_location=self.device)
+        checkpoint = torch.load("./Models/Resnet50.pt", map_location=self.device, weights_only=False)
         teacher_resnet.load_state_dict(checkpoint['model_state_dict'])
         teacher_resnet.to(self.device)
         teacher_resnet.eval()
@@ -146,6 +146,10 @@ class ModelTrainer(nn.Module):
     
     #Compute EER 
     def compute_eer(self, labels, probabilities):
+        # If the model is completely dead/flat, return 50% instead of hitting the argmin artifact
+        if len(np.unique(np.round(probabilities, 5))) <= 1:
+            return 50.0
+
         fpr, tpr, thresholds  = roc_curve(labels,probabilities,pos_label=1)
         fnr = 1-fpr
 
@@ -212,7 +216,7 @@ class ModelTrainer(nn.Module):
                     self.start_epoch = checkpoint['epoch'] + 1
                     # Manually anchor your target baseline EER to beat!
                     self.best_val_eer = checkpoint['best_val_eer']
-                    # self.best_val_eer = 7.14
+                    # self.best_val_eer = 9.42
 
             print("Checkpoint Loaded starting from epoch:", self.start_epoch)
         else:

@@ -52,28 +52,48 @@ class ResultLeaderboard:
                         timestamp:str,
                         model_name:str,
                         metrics:dict):
-        #Save metrics in a CSV file
+        # Fetch the test EER safely as a float first
+        try:
+            current_eer = float(metrics.get('Test EER (%)', 0.0))
+        except (ValueError, TypeError):
+            current_eer = 0.0
+
+        # CRITICAL FILTER: Ignore this run completely if EER is invalid or <= 0.0%
+        if current_eer <= 0.0:
+            print(f"Skipping leaderboard update for {model_name}: Invalid or 0.0% EER detected.")
+            return
+
+        # Build current run with safe formatting
         current_run = {
             "Time Stamp": timestamp,
             "Model Name": model_name,
             "Highest Val Acc": f"{metrics.get('Highest Val Acc', 0.0):.4f}",
             "Default Test Acc": f"{metrics.get('Default Test Acc', 0.0):.4f}",
             "Test ROC-AUC": f"{metrics.get('Test ROC-AUC', 0.0):.4f}",
-            "Test EER (%)": f"{metrics.get('Test EER (%)', 0.0):.2f}%"
+            "Test EER (%)": f"{current_eer:.2f}%"
         }
 
-        #Read previous entries out of the file to combine them for sorting
         all_runs = [current_run]
+        
+        # Read and parse previous entries out of the leaderboard file
         if os.path.exists(self.csv_path):
-            with open(self.csv_path, mode='r',newline="", encoding="utf-8") as f:
+            with open(self.csv_path, mode='r', newline="", encoding="utf-8") as f:
                 lines = f.readlines()
             
-            # Parse text lines back into structured runs
             for line in lines:
-                if "|" in line and "Model Name" not in line and "----" not in line and "====" not in line:
+                if "|" in line and "Model Name" not in line and "----" not in line and "====" not in line and "ARCHITECTURE" not in line:
                     parts = [p.strip() for p in line.split("|")]
                     if len(parts) >= 5:
+                        try:
+                            # Validate historical EER before adding it back
+                            hist_eer_val = float(parts[4].replace("%", "").strip())
+                            if hist_eer_val <= 0.0:
+                                continue  # Clean out any old corrupted 0.0 entries
+                        except ValueError:
+                            continue
+
                         all_runs.append({
+                            "Time Stamp": "Historical", # Maintain structure symmetry
                             "Model Name": parts[0],
                             "Highest Val Acc": parts[1],
                             "Default Test Acc": parts[2],
@@ -81,28 +101,38 @@ class ResultLeaderboard:
                             "Test EER (%)": parts[4]
                         })
         
-        #Deduplicate historical data runs (keep the best run per architecture name)
+        # Deduplicate historical data runs (keep the absolute lowest non-zero EER)
         unique_runs = {}
         for r in all_runs:
             name = r["Model Name"]
+            try:
+                eer_val = float(r["Test EER (%)"].replace("%", "").strip())
+            except ValueError:
+                continue
+
             if name not in unique_runs:
                 unique_runs[name] = r
             else:
-                # Keep the entry with the lower EER score
-                older = float(unique_runs[name]["Test EER (%)"].replace("%", ""))
-                newer = float(r["Test EER (%)"].replace("%", ""))
-                if newer <= older:
-                    unique_runs[name] = r
+                try:
+                    older_eer = float(unique_runs[name]["Test EER (%)"].replace("%", "").strip())
+                    # Check if the new run is strictly better
+                    if eer_val < older_eer:
+                        unique_runs[name] = r
+                except ValueError:
+                    pass
 
         sorted_runs = list(unique_runs.values())
 
-        # Sort entries dynamically by the lowest EER (%) value
-        try:
-            sorted_runs.sort(key=lambda x: float(x["Test EER (%)"].replace('%', '').strip()))
-        except ValueError:
-            pass
+        # Sort entries dynamically by the lowest valid EER value
+        def get_sort_key(x):
+            try:
+                return float(x["Test EER (%)"].replace('%', '').strip())
+            except ValueError:
+                return float('inf') # Push bad entries to the bottom if parsing fails
 
-        # Generate identical requested layout structure using standard string mapping
+        sorted_runs.sort(key=get_sort_key)
+
+        # Generate layout string format
         table_output = []
         table_output.append(f"{'AUDIO DEEPFAKE ARCHITECTURE LEADERBOARD (RANKED BY BEST EER)':^85}\n")
         table_output.append("="*85 + "\n")
@@ -118,10 +148,10 @@ class ResultLeaderboard:
                 f"{run['Test EER (%)']:<12}\n"
             )
 
-        # Overwrite the table down into the CSV log file
+        # Overwrite clean data to file
         with open(self.csv_path, mode='w', encoding="utf-8") as f:
             f.writelines(table_output)
-    
+        
     def Set_SummaryReport(self,
                           timestamp:str,
                           model_name:str,

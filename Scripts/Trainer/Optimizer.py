@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from Trainer import ModelTrainer
 
 
-def get_swin_optimizer(model, base_lr = 1e-5, decay_rate=0.8):
+def get_swin_optimizer(model, base_lr = 1e-4, decay_rate=0.80):
     parameters_group = []
 
     #Patch embedding and early stages
@@ -35,10 +35,10 @@ def get_swin_optimizer(model, base_lr = 1e-5, decay_rate=0.8):
         "lr": base_lr # e.g., 1e-5
     })
     
-    optimizer = torch.optim.AdamW(parameters_group, weight_decay=0.05)
+    optimizer = torch.optim.AdamW(parameters_group, weight_decay=0.08)
     return optimizer
 
-def get_vit_or_deit_optimizer(model, base_lr=1e-5, decay_rate=0.9):
+def get_vit_or_deit_optimizer(model, base_lr=2e-4, decay_rate=1.0):
     parameters_group = []
     
     # 1. Patch Embeddings & Positional Embeddings (Lowest LR)
@@ -63,9 +63,9 @@ def get_vit_or_deit_optimizer(model, base_lr=1e-5, decay_rate=0.9):
         "lr": base_lr
     })
     
-    return torch.optim.AdamW(parameters_group, weight_decay=0.05)
+    return torch.optim.AdamW(parameters_group, weight_decay=1.0)
 
-def get_generic_finetune_optimizer(model, base_lr=1e-5, decay_rate=0.8):
+def get_generic_finetune_optimizer(model, base_lr=5e-2, decay_rate=1.0):
     """
     Dynamically groups parameters into three tiers:
     Tier 1 (Lowest LR): Early feature extraction (CNN stems, patch embeddings)
@@ -98,7 +98,7 @@ def get_generic_finetune_optimizer(model, base_lr=1e-5, decay_rate=0.8):
         {"params": tier3_params, "lr": base_lr}
     ]
     
-    return torch.optim.AdamW(parameters_group, weight_decay=0.05)
+    return torch.optim.AdamW(parameters_group, weight_decay=0.08)
 
 def set_Optimizers(model_name, 
                    active_model,
@@ -107,13 +107,13 @@ def set_Optimizers(model_name,
     #Set Fine Tune Optimizer for Swin
     if model_name == "SwinTransformer":
         print("SWIN FINE TUNE OPTIMIZER")
-        fine_tune_optimizer = get_swin_optimizer(active_model,  base_lr=config.learning_rate)
+        fine_tune_optimizer = get_swin_optimizer(active_model)
     elif model_name == "VIT" or model_name == "DEIT":
         print("VIT OR DEIT FINE TUNE OPTIMIZER")
-        fine_tune_optimizer = get_vit_or_deit_optimizer(active_model, base_lr=config.learning_rate)
+        fine_tune_optimizer = get_vit_or_deit_optimizer(active_model)
     else:
         print("Other Models")
-        fine_tune_optimizer = get_generic_finetune_optimizer(active_model,  base_lr=config.learning_rate)
+        fine_tune_optimizer = get_generic_finetune_optimizer(active_model)
     
     #Explicity override the default optimizer inside the trainer instance
     trainer.optimizer = fine_tune_optimizer
