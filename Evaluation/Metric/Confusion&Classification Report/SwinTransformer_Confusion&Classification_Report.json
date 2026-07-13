@@ -1,6 +1,6 @@
 {
     "SwinTransformer": {
-        "timestamp": "2026-07-08 15:17:37",
+        "timestamp": "2026-07-13 17:10:18",
         "Classification Report": {
             "bonafide": {
                 "precision": 0.10324690820781336,

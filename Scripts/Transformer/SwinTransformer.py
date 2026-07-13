@@ -26,7 +26,7 @@ class WindowAttention(nn.Module):
                  d_model,
                  n_heads,
                  win,
-                 dropout_rate=0.3):
+                 dropout_rate=0.1):
         super().__init__()
 
         self.d_model = d_model
@@ -101,7 +101,7 @@ class SwinBlock(nn.Module):
                  shift,
                  n_heads,
                  diff,
-                 dropout_rate=0.6):
+                 dropout_rate=0.1):
         super().__init__()
 
         self.d_model = d_model
@@ -203,7 +203,7 @@ class PatchMerging(nn.Module):
 class Swin(nn.Module):
     def __init__(self,
                  config:AudioConfig, 
-                 dropout_rate=0.5):
+                 dropout_rate=0.2):
         super().__init__()
         self.architecture_name = "SwinTransformer"
         self.d_model = config.d_model

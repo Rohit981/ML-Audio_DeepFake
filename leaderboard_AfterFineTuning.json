@@ -1,10 +1,10 @@
 {
     "Resnet50": {
         "Highest Val Acc": 0.9998389953308646,
-        "Test Acc": 0.9284922161236436,
-        "Test ROC-AUC": 0.979670507385824,
-        "Test EER (%)": 7.151597552685248,
-        "Training Time (s)": 1044.1470334529877
+        "Test Acc": 0.7842132599632213,
+        "Test ROC-AUC": 0.878804302911399,
+        "Test EER (%)": 0.8973487423521415,
+        "Training Time (s)": 1208.9886338710785
     },
     "VIT": {
         "Highest Val Acc": 0.9954,
@@ -35,11 +35,11 @@
         "Training Time (s)": 2366.44
     },
     "SwinTransformer": {
-        "Highest Val Acc": 0.9965383996135888,
-        "Test Acc": 0.9285062537726182,
-        "Test ROC-AUC": 0.97670709938921,
-        "Test EER (%)": 7.138001359619306,
-        "Training Time (s)": 4855.193066835403
+        "Highest Val Acc": 0.9964981484463049,
+        "Test Acc": 0.10324690820781336,
+        "Test ROC-AUC": 0.5252414094724401,
+        "Test EER (%)": 0.04078857919782461,
+        "Training Time (s)": 509.5519971847534
     },
     "CNNTRANSFORMER": {
         "Highest Val Acc": 0.9998,

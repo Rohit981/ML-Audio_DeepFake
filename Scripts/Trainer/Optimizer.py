@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from Trainer import ModelTrainer
 
 
-def get_swin_optimizer(model, base_lr = 1e-4, decay_rate=0.80):
+def get_swin_optimizer(model, base_lr = 5e-6, decay_rate=1.0):
     parameters_group = []
 
     #Patch embedding and early stages
@@ -35,10 +35,10 @@ def get_swin_optimizer(model, base_lr = 1e-4, decay_rate=0.80):
         "lr": base_lr # e.g., 1e-5
     })
     
-    optimizer = torch.optim.AdamW(parameters_group, weight_decay=0.08)
+    optimizer = torch.optim.AdamW(parameters_group, weight_decay=1.0)
     return optimizer
 
-def get_vit_or_deit_optimizer(model, base_lr=2e-4, decay_rate=1.0):
+def get_vit_or_deit_optimizer(model, base_lr=2e-5, decay_rate=1.0):
     parameters_group = []
     
     # 1. Patch Embeddings & Positional Embeddings (Lowest LR)

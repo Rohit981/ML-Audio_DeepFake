@@ -52,7 +52,7 @@ class EncoderBlock(nn.Module):
                  d_model,
                  d_ff,
                  n_heads,
-                 dropout_value=0.3):
+                 dropout_value=0.4):
         super().__init__()
 
         #First layer Multiheaded attention and layer norm
@@ -90,7 +90,7 @@ class TransformerLayer(nn.Module):
         super().__init__()
 
         #Regularization
-        self.dropout = nn.Dropout(0.1)
+        self.dropout = nn.Dropout(0.2)
 
         #Sequential stack of encoder layer
         self.encoder_layer = nn.ModuleList([

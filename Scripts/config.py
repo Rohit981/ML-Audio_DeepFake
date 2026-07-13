@@ -34,12 +34,12 @@ class AudioConfig:
 
      #--------------------Training and Optimization-------------------------
      batch_size: int = 128
-     learning_rate: float = 1e-4
+     learning_rate: float = 2e-5
      n_epochs : int = 500
      start_from_checkpoint : bool = True
      Temperature: float = 1.0 #Only use if distill is soft
      alpha: float = 0.5 #50/50 balance between ground truth and distillation
-     distil_type: str = "Soft" #Option hard or soft
+     distil_type: str = "Hard" #Option hard or soft
 
      def set_seed(self,seed=42):
           random.seed(seed)

@@ -97,7 +97,7 @@ class Resnet(nn.Module):
         self.layer4 = self._make_layers(ResBlock, layer_list[3], planes=512, strides=2)
 
         self.average_pool = nn.AdaptiveAvgPool2d((1,1))
-        self.dropout = nn.Dropout(0.3)
+        self.dropout = nn.Dropout(0.5)
         self.fc = nn.Linear(512*ResBlock.expansion, num_classes)
 
     def _make_layers(self, ResBlock, blocks, planes, strides=1):
