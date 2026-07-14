@@ -33,7 +33,7 @@ class AudioConfig:
      input_layer_channels : list = field(default_factory = lambda:[32,64,128])
 
      #--------------------Training and Optimization-------------------------
-     batch_size: int = 128
+     batch_size: int = 64
      learning_rate: float = 2e-5
      n_epochs : int = 500
      start_from_checkpoint : bool = True

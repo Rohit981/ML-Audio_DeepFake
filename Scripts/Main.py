@@ -47,7 +47,7 @@ def main():
     deit = DEIT.DEIT(config)
 
     #Track of active model
-    active_model = deit    
+    active_model = Resnet_18    
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
@@ -85,8 +85,8 @@ def main():
     config.test_acc = eval_metric.test_acc
     config.roc_auc_value = eval_metric.roc_value
     config.eer_value = eval_metric.eer_value
-    # config.optimal_threshold = eval_metric.optimal_threshold
-    # trainer.optimal_threshold = config.optimal_threshold
+    config.optimal_threshold = eval_metric.optimal_threshold
+    trainer.optimal_threshold = config.optimal_threshold
     
     leaderboard = ResultLeaderboard(config=config,
                                     model_name=trainer.model_name)

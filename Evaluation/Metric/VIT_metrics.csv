@@ -940,3 +940,45 @@ Test EER (%): 12.03%
 Optimal Threshold: 0.041552
 Batch Size: 64
 Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: VIT
+Epochs: 500
+Training Time: 89.64 seconds
+Highest Val Acc: 0.9954
+Default Test Acc: 0.8776
+Test ROC-AUC: 0.9295
+Test EER (%): 12.24%
+Optimal Threshold: 0.073548
+Batch Size: 128
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: VIT
+Epochs: 500
+Training Time: 178.46 seconds
+Highest Val Acc: 0.9954
+Default Test Acc: 0.8782
+Test ROC-AUC: 0.9311
+Test EER (%): 12.18%
+Optimal Threshold: 0.071308
+Batch Size: 64
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: VIT
+Epochs: 500
+Training Time: 152.36 seconds
+Highest Val Acc: 0.9954
+Default Test Acc: 0.8787
+Test ROC-AUC: 0.9321
+Test EER (%): 12.13%
+Optimal Threshold: 0.042502
+Batch Size: 64
+Learning Rate: 2e-05
