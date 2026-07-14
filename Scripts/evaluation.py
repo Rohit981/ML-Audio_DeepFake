@@ -116,7 +116,7 @@ class Evaluation_metric:
     #Save Leaderboard Metric
     def save_leaderboard_metric(self, eer_value, test_acc, roc_value):
         #Define json path and model name variable
-        json_path = "leaderboard_PreFineTuning.json"
+        json_path = "leaderboard_AfterFineTuning.json"
         model_name = self.model_name
 
         #Read existing JSON database if it exist
@@ -129,27 +129,27 @@ class Evaluation_metric:
                     pass
         
         #Check if we should update(if model is new, or if current EER is better/equal)
-        # if eer_value > 0:
-        #     should_update = True
-        #     if model_name in leaderboard_data:
-        #         older_eer = leaderboard_data[model_name].get("Test EER (%)", 100.0)
+        if eer_value > 0:
+            should_update = True
+            if model_name in leaderboard_data:
+                older_eer = leaderboard_data[model_name].get("Test EER (%)", 100.0)
 
-        #         if eer_value > older_eer:
-        #             should_update = False
+                if eer_value > older_eer:
+                    should_update = False
 
-        #     if should_update:
-        #         leaderboard_data[model_name] = {
-        #         "Highest Val Acc": float(self.highest_val_acc),
-        #         "Test Acc": float(test_acc),  #calibrated accuracy
-        #         "Test ROC-AUC": float(roc_value),
-        #         "Test EER (%)": float(eer_value),
-        #         "Training Time (s)": float(self.total_training_time) # Captured from timer
-        #         }
+            if should_update:
+                leaderboard_data[model_name] = {
+                "Highest Val Acc": float(self.highest_val_acc),
+                "Test Acc": float(test_acc),  #calibrated accuracy
+                "Test ROC-AUC": float(roc_value),
+                "Test EER (%)": float(eer_value),
+                "Training Time (s)": float(self.total_training_time) # Captured from timer
+                }
             
 
-        #     # Write back out to the master ledger file
-        #     with open(json_path, "w", encoding="utf-8") as f:
-        #         json.dump(leaderboard_data, f, indent=4)
+            # Write back out to the master ledger file
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(leaderboard_data, f, indent=4)
 
         return json_path
 
@@ -246,7 +246,7 @@ class Evaluation_metric:
 
     #Plot Speed vs Accuracy graph
     def Plot_Speed_Accuracy(self,
-                            json_path = "leaderboard_PreFineTuning.json"):
+                            json_path = "leaderboard_AfterFineTuning.json"):
         
         #Check if the file exist or not
         if not os.path.exists(json_path):
@@ -302,7 +302,7 @@ class Evaluation_metric:
         
         
         plt.tight_layout()
-        save_path = r'D:\Deep Neural Network\ML-Audio_DeepFake\Evaluation\Graph\Speed_Vs_Accuracy_Frontier_PreFineTuning.svg'
+        save_path = r'D:\Deep Neural Network\ML-Audio_DeepFake\Evaluation\Graph\Speed_Vs_Accuracy_Frontier_AfterFineTuned.svg'
         plt.savefig(
             save_path, 
             dpi=300, 

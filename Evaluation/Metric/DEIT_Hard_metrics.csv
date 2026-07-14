@@ -693,3 +693,73 @@ Test EER (%): 0.00%
 Optimal Threshold: inf
 Batch Size: 128
 Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Hard
+Epochs: 500
+Training Time: 148.64 seconds
+Highest Val Acc: 0.9962
+Default Test Acc: 0.5267
+Test ROC-AUC: 0.5308
+Test EER (%): 47.33%
+Optimal Threshold: 0.000087
+Batch Size: 64
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Hard
+Epochs: 500
+Training Time: 265.30 seconds
+Highest Val Acc: 0.9962
+Default Test Acc: 0.4881
+Test ROC-AUC: 0.5175
+Test EER (%): 51.20%
+Optimal Threshold: 0.000000
+Batch Size: 64
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Hard
+Epochs: 500
+Training Time: 129.63 seconds
+Highest Val Acc: 0.9962
+Default Test Acc: 0.5886
+Test ROC-AUC: 0.6221
+Test EER (%): 41.14%
+Optimal Threshold: 0.988431
+Batch Size: 128
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Hard
+Epochs: 500
+Training Time: 147.82 seconds
+Highest Val Acc: 0.9962
+Default Test Acc: 0.5413
+Test ROC-AUC: 0.5679
+Test EER (%): 45.87%
+Optimal Threshold: 0.012874
+Batch Size: 128
+Learning Rate: 2e-05
+
+========================================
+NEXT TRIAL RUN STATISTICS:
+========================================
+Model Name: DEIT_Hard
+Epochs: 500
+Training Time: 155.90 seconds
+Highest Val Acc: 0.9962
+Default Test Acc: 0.4338
+Test ROC-AUC: 0.4109
+Test EER (%): 56.61%
+Optimal Threshold: 0.021506
+Batch Size: 128
+Learning Rate: 2e-05

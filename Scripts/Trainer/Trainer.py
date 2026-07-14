@@ -118,8 +118,8 @@ class ModelTrainer(nn.Module):
         teacher_resnet.eval()
 
         #Freeze the teacher
-        # for param in teacher_resnet.parameters():
-        #     param.requires_grad = False
+        for param in teacher_resnet.parameters():
+            param.requires_grad = False
 
         return teacher_resnet
 

@@ -47,7 +47,7 @@ def main():
     deit = DEIT.DEIT(config)
 
     #Track of active model
-    active_model = Resnet_18    
+    active_model = deit    
 
     #Initialize Trainer and run the epochs
     trainer = Trainer.ModelTrainer(model=active_model, 
